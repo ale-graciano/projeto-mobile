@@ -2,15 +2,17 @@ import { useState } from "react"
 
 export default function HelloWorld(){
 
-    let [name, setName] = useState('')
-
+    let [name, setName] = useState('');
+    let [message, setMessage] = useState('')
+    
     const handleHelloWorld = (evento) => {
-        console.log(evento)
+        setMessage(`Hello World, ${name}!`)
     }
 
     const handleClear = () => {
         console.log(arguments)
         setName('')
+        setMessage('')
     }
 
     const handleChangeInput = (event) =>{
@@ -19,19 +21,17 @@ export default function HelloWorld(){
     }
 
     const handleKeyInput = (event) => {
-        console.log(event)
-        if (event.key === 'Escape')
-            setName('')
+        if (event.key === 'Escape'){ handleClear()
+        } else if (event.key === 'Enter'){handleHelloWorld()}
     }
-
-
+    
     return (
         <>
             <h1>Hello World!</h1>
             <input type="text" onKeyUp={handleKeyInput} onChange={handleChangeInput} value = {name}/>
             <button onClick={handleHelloWorld}>Hello World</button>
             <button onClick={handleClear}>Limpar</button>
-            {name && <p>Hello World, {name}!</p>}
+            {message && <p>{message}</p>}
         </>
     )
 
